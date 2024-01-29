@@ -9,14 +9,8 @@ import SwiftUI
 import MapKit
 
 struct LocationDetailsView: View {
-//    @Binding var mapSelection: String?
-//    @Binding var mapSelection: MKMapItem?
-//    @Binding var show: Bool
     @State private var lookAroundScene: MKLookAroundScene?
-//    @Binding var getDirections: Bool
     @Binding var selectedBox: Box?
-    
-//    init()
     
     var coord = CLLocationCoordinate2D(latitude: 42.35993330, longitude: -83.00728570)
     
@@ -88,32 +82,6 @@ struct LocationDetailsView: View {
                         .background(.green)
                         .cornerRadius(12)
                 }
-                
-//                Button {
-//                    getDirections = true
-//                    show = false
-//                } label: {
-//                    Text("Get Directions")
-//                        .font(.headline)
-//                        .foregroundColor(.white)
-//                        .frame(width: 170, height: 48)
-//                        .background(.blue)
-//                        .cornerRadius(12)
-//                }
-//                Button {
-//                    Task {
-//                        try await lookAroundScene = fetchScene(for: coord)
-//                        print(mapSelection?.placemark.coordinate ?? "error")
-//                    }
-//                    
-//                } label: {
-//                    Text("Get Lookaround")
-//                        .font(.headline)
-//                        .foregroundColor(.white)
-//                        .frame(width: 170, height: 48)
-//                        .background(.blue)
-//                        .cornerRadius(12)
-//                }
             }
             .padding(.horizontal)
         }
@@ -136,26 +104,20 @@ struct LocationDetailsView: View {
 
 
 extension LocationDetailsView {
-    func fetchLookAroundPreview() {
-        if let item = selectedBox?.item {
-            lookAroundScene = nil
-            Task {
-                let request = MKLookAroundSceneRequest(mapItem: item)
-                lookAroundScene = try? await request.scene
-            }
-        }
-    }
+//    func fetchLookAroundPreview() {
+//        if let item = selectedBox?.item {
+//            lookAroundScene = nil
+//            Task {
+//                let request = MKLookAroundSceneRequest(mapItem: item)
+//                lookAroundScene = try? await request.scene
+//            }
+//        }
+//    }
     
     private func fetchScene(for coordinate: CLLocationCoordinate2D) async throws -> MKLookAroundScene? {
         let lookAroundScene = MKLookAroundSceneRequest(coordinate: coordinate)
         return try await lookAroundScene.scene
     }
-    
-//    private func getBox(item: MKMapItem) -> Box {
-//        for box in {
-//            
-//        }
-//    }
 }
 
 #Preview {

@@ -13,7 +13,6 @@ class Pin: Identifiable, Encodable {
     var firstName: String
     var lastName: String
     var address: String
-//    var name: String
     var city: String
     var state: String
     var zip: String
@@ -24,7 +23,6 @@ class Pin: Identifiable, Encodable {
     
     init(firstName: String, lastName: String, address: String, city: String, state: String, zip: String, phone: String, latitude: Double, longitude: Double) {
 //    init(name: String, city: String, state: String, zip: String, latitude: Double, longitude: Double) {
-//        self.name = name
         self.firstName = firstName
         self.lastName = lastName
         self.address = address
