@@ -16,12 +16,6 @@ struct ContentView: View {
     
     @State private var showAddBoxForm = false
     
-//    @State private var mapItems = [MKMapItem]()
-//    @State private var getDirections = false
-//    @State private var firstName: String?
-//    @State private var lastName: String?
-//    @State private var phone: String?
-    
     var selectedBox: Binding<Box?> {
         Binding {
             boxes.first { box in
@@ -69,15 +63,17 @@ struct ContentView: View {
             
         }
         .overlay(alignment: .top) {
-            Button {
-                showAddBoxForm.toggle()
-            } label: {
-                Text("Add Pin")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(width: 100, height: 48)
-                    .background(.green)
-                    .cornerRadius(12)
+            if mapSelection == nil {
+                Button {
+                    showAddBoxForm.toggle()
+                } label: {
+                    Text("Add Pin")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(width: 100, height: 48)
+                        .background(.green)
+                        .cornerRadius(12)
+                }
             }
         }
     }

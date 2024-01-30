@@ -59,32 +59,7 @@ struct AddBoxFormView: View {
 }
 
 //#Preview {
-//    AddBoxFormView(showAddBoxForm:.constant(false), pinsModel: PinsModel())
+//    AddBoxFormView(showAddBoxForm: .constant(true), pinsModel: PinsModel(), boxes: AddBoxFormView(showAddBoxForm: <#T##Binding<Bool>#>, pinsModel: <#T##PinsModel#>, boxes: <#T##Binding<[Box]>#>))
 //}
 
-//extension AddBoxFormView {
-//    func getCoordinate(addressString: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
-//        let geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
-//            if error == nil {
-//                if let placemark = placemarks?[0] {
-//                    let location = placemark.location!
-//                    
-//                    completionHandler(location.coordinate, nil)
-//                    return
-//                }
-//            }
-//            completionHandler(kCLLocationCoordinate2DInvalid, error as NSError?)
-//        }
-//    }
-    
-//    func buildPinsFromAddresses() {
-//        focusHope.forEach { address in
-//            getCoordinate(addressString: address) { coordinate, error in
-//                self.pins.append(Pin(name: address, latitude: coordinate.latitude, longitude: coordinate.longitude))
-//                print("Pin(name: \"\(address)\", latitude: \(coordinate.latitude), longitude: \(coordinate.longitude)),")
-//            }
-//        }
-//    }
-    
-//}
+
