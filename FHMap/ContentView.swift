@@ -14,6 +14,8 @@ struct ContentView: View {
     @State private var mapSelection: MKMapItem?
     @State private var boxes = [Box]()
     
+    @State private var showAddBoxForm = false
+    
 //    @State private var mapItems = [MKMapItem]()
 //    @State private var getDirections = false
 //    @State private var firstName: String?
@@ -56,21 +58,28 @@ struct ContentView: View {
                 .presentationBackgroundInteraction(.enabled(upThrough: .height(360)))
                 .presentationCornerRadius(12)
         })
+        .sheet(isPresented: $showAddBoxForm, content: {
+            AddBoxFormView(showAddBoxForm: $showAddBoxForm, pinsModel: pinsModel, boxes: $boxes)
+        })
         .onAppear() {
         pinsModel.buildBoxes()
         boxes = pinsModel.boxes
         }
-//        .overlay(alignment: .top) {
-//            Button {
-//            } label: {
-//                Text("Do Something")
-//                    .font(.headline)
-//                    .foregroundColor(.white)
-//                    .frame(width: 178, height: 48)
-//                    .background(.green)
-//                    .cornerRadius(12)
-//            }
-//        }
+        .onChange(of: showAddBoxForm) {
+            
+        }
+        .overlay(alignment: .top) {
+            Button {
+                showAddBoxForm.toggle()
+            } label: {
+                Text("Add Pin")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(width: 100, height: 48)
+                    .background(.green)
+                    .cornerRadius(12)
+            }
+        }
     }
 }
 

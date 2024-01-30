@@ -49,6 +49,16 @@ class PinsModel: ObservableObject {
         }
     }
     
+    func buildBox(coordinate: CLLocationCoordinate2D, address: String, firstName: String, lastName: String, phone: String) -> Box {
+        let coords = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let place = MKPlacemark(coordinate: coords)
+        let item = MKMapItem(placemark: place)
+        item.name = address
+        item.timeZone = TimeZone(identifier: "EST")
+        
+        return Box(item: item, firstName: firstName, lastName: lastName, phone: phone)
+    }
+    
     let samplePins = [Pin(firstName: "Julian", lastName: "Conner", address: "20100 MOROSS RD", city: "Detroit", state: "MI", zip: "48224-1181", phone: "(313)-436-7101", latitude: 42.4274075, longitude: -82.9365005),
     Pin(firstName: "Ashten", lastName: "Maxwell", address: "1434 SHERIDAN ST", city: "Detroit", state: "MI", zip: "48214", phone: "(313)-186-8623", latitude: 42.353657, longitude: -83.002515),
     Pin(firstName: "Coy", lastName: "Watts", address: "3501 SOMERSET AVE", city: "Detroit", state: "MI", zip: "48224-3457", phone: "(313)-473-9322", latitude: 42.3886117, longitude: -82.9408564),

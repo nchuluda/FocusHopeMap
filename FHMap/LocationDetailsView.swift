@@ -9,6 +9,7 @@ import SwiftUI
 import MapKit
 
 struct LocationDetailsView: View {
+//    @ObservedObject var pinsModel: PinsModel
     @State private var lookAroundScene: MKLookAroundScene?
     @Binding var selectedBox: Box?
     
