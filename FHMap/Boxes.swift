@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct Box {
+struct Box: Equatable {
     var item:  MKMapItem
     var firstName: String
     var lastName: String

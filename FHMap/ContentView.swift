@@ -15,6 +15,9 @@ struct ContentView: View {
     @State private var boxes = [Box]()
     
     @State private var showAddBoxForm = false
+    @State private var showRouteBuilder = false
+    
+    @State private var route = [Box]()
     
     var selectedBox: Binding<Box?> {
         Binding {
@@ -43,17 +46,30 @@ struct ContentView: View {
             // BOXES - PROFILE DATA AND MAPITEM BUNDLED TOGETHER AS ONE OBJECT
             ForEach(boxes, id: \.item) { box in
                 let item = box.item
-                Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
+                
+                // PINS ADDED TO ROUTE
+                if route.contains(box) {
+                    Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
+                        .tint(.blue)
+                        
+                    
+                // ALL REMAINING PINS
+                } else {
+                    Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
+                }
             }
         }
         .sheet(isPresented: showDetails, content: {
-            LocationDetailsView(selectedBox: selectedBox)
+            LocationDetailsView(selectedBox: selectedBox, route: $route)
                 .presentationDetents([.height(360)])
                 .presentationBackgroundInteraction(.enabled(upThrough: .height(360)))
                 .presentationCornerRadius(12)
         })
         .sheet(isPresented: $showAddBoxForm, content: {
             AddBoxFormView(showAddBoxForm: $showAddBoxForm, pinsModel: pinsModel, boxes: $boxes)
+        })
+        .sheet(isPresented: $showRouteBuilder, content: {
+            RouteBuilderView(route: $route, showRouteBuilder: $showRouteBuilder)
         })
         .onAppear() {
         pinsModel.buildBoxes()
@@ -63,16 +79,29 @@ struct ContentView: View {
             
         }
         .overlay(alignment: .top) {
-            if mapSelection == nil {
-                Button {
-                    showAddBoxForm.toggle()
-                } label: {
-                    Text("Add Pin")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(width: 100, height: 48)
-                        .background(.green)
-                        .cornerRadius(12)
+            HStack {
+                if mapSelection == nil {
+                    Button {
+                        showAddBoxForm.toggle()
+                    } label: {
+                        Text("Add Pin")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(width: 100, height: 48)
+                            .background(.green)
+                            .cornerRadius(12)
+                    }
+                    Button {
+                        showRouteBuilder.toggle()
+                    } label: {
+                        Text("Route")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(width: 100, height: 48)
+                            .background(.blue)
+                            .cornerRadius(12)
+                        
+                    }
                 }
             }
         }

@@ -44,9 +44,7 @@ struct AddBoxFormView: View {
                 }
                 Section(header: Text("Submit")) {
                     Button("Submit") {
-                        print(firstName + " " + lastName + " " + address + " " + city + " " + state + " " + zip + " " + phone)
                         pinsModel.getCoordinate(addressString: query) { coordinate, error in
-                            print("\(coordinate.latitude), \(coordinate.longitude)")
                             let box = pinsModel.buildBox(coordinate: coordinate, address: address, firstName: firstName, lastName: lastName, phone: phone)
                             boxes.append(box)
                         }

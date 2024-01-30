@@ -11,6 +11,7 @@ import MapKit
 struct LocationDetailsView: View {
     @State private var lookAroundScene: MKLookAroundScene?
     @Binding var selectedBox: Box?
+    @Binding var route: [Box]
     
     var coord = CLLocationCoordinate2D(latitude: 42.35993330, longitude: -83.00728570)
     
@@ -70,18 +71,32 @@ struct LocationDetailsView: View {
             }
             
             HStack(spacing: 24) {
+//                Button {
+//                    if let item = selectedBox?.item {
+//                        item.openInMaps()
+//                    }
+//                } label: {
+//                    Text("Open in Maps")
+//                        .font(.headline)
+//                        .foregroundColor(.white)
+//                        .frame(width: 178, height: 48)
+//                        .background(.green)
+//                        .cornerRadius(12)
+//                }
                 Button {
-                    if let item = selectedBox?.item {
-                        item.openInMaps()
+                    print("Add To Route")
+                    if let boxToAdd = selectedBox {
+                        route.append(boxToAdd)
                     }
                 } label: {
-                    Text("Open in Maps")
+                    Text("Add To Route")
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(width: 178, height: 48)
-                        .background(.green)
+                        .background(.blue)
                         .cornerRadius(12)
                 }
+                
             }
             .padding(.horizontal)
         }
@@ -120,6 +135,6 @@ extension LocationDetailsView {
     }
 }
 
-#Preview {
-    LocationDetailsView(selectedBox: .constant(nil))
-}
+//#Preview {
+//    LocationDetailsView(selectedBox: .constant(nil), route: box)
+//}
