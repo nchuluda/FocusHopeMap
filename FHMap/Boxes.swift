@@ -17,7 +17,7 @@ struct Box: Equatable {
     static func previewRoute() -> [Box] {
         let place = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 42.35993330, longitude: -83.00728570))
         let item = MKMapItem(placemark: place)
-        item.name = "Fake Name"
+        item.name = "660 Woodward Ave, Detroit, MI, 48226"
         item.timeZone = TimeZone(identifier: "EST")
         return [Box(item: item, firstName: "Aimee", lastName: "Manning", phone: "(313)123-4567"), Box(item: item, firstName: "Catherine", lastName: "Estes", phone: "(313)765-4321"), Box(item: item, firstName: "Morgan", lastName: "Cochran", phone: "(313)987-2584")]
     }
