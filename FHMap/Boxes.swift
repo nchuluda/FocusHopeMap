@@ -13,7 +13,6 @@ struct Box: Equatable {
     var firstName: String
     var lastName: String
     var phone: String
-//    var mapItem: MKMapItem
     
     static func previewRoute() -> [Box] {
         let place = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 42.35993330, longitude: -83.00728570))
@@ -23,13 +22,11 @@ struct Box: Equatable {
         return [Box(item: item, firstName: "First", lastName: "Last", phone: "Phone"), Box(item: item, firstName: "First", lastName: "Last", phone: "Phone"), Box(item: item, firstName: "First", lastName: "Last", phone: "Phone")]
     }
     
-//    init(firstName: String, lastName: String, phone: String, mapItem: MKMapItem) {
     init(item: MKMapItem, firstName: String, lastName: String, phone: String) {
 
         self.item = item
         self.firstName = firstName
         self.lastName = lastName
         self.phone = phone
-//        self.mapItem = mapItem
     }
 }
