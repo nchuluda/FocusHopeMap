@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct RouteBuilderView: View {
     @Binding var route: [Box]
@@ -24,18 +25,23 @@ struct RouteBuilderView: View {
                     .background(.red)
                     .cornerRadius(12)
             }
+            .padding([.top, .bottom])
         }
-        ForEach(route, id: \.item) { box in
-            VStack {
-                Text("\(box.firstName) \(box.lastName)")
-                Text("\(box.item.name ?? "Address")")
-                Text("\(box.phone)")
+        ScrollView {
+            ForEach(route, id: \.item) { box in
+                VStack {
+                    Text("\(box.firstName) \(box.lastName)")
+                    Text("\(box.item.name ?? "Address")")
+                    Text("\(box.phone)")
+                }
+                .padding()
             }
-            .padding()
         }
     }
 }
 
-//#Preview {
-//    RouteBuilderView(route: .constant([Box])
-//}
+
+    
+#Preview {
+    RouteBuilderView(route: .constant(Box.previewRoute()), showRouteBuilder: .constant(false))
+}

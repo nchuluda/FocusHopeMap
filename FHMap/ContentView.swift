@@ -100,7 +100,6 @@ struct ContentView: View {
                             .frame(width: 100, height: 48)
                             .background(.blue)
                             .cornerRadius(12)
-                        
                     }
                 }
             }

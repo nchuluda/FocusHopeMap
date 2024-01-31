@@ -84,7 +84,6 @@ struct LocationDetailsView: View {
 //                        .cornerRadius(12)
 //                }
                 Button {
-                    print("Add To Route")
                     if let boxToAdd = selectedBox {
                         route.append(boxToAdd)
                     }
