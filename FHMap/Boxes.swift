@@ -19,11 +19,10 @@ struct Box: Equatable {
         let item = MKMapItem(placemark: place)
         item.name = "Fake Name"
         item.timeZone = TimeZone(identifier: "EST")
-        return [Box(item: item, firstName: "First", lastName: "Last", phone: "Phone"), Box(item: item, firstName: "First", lastName: "Last", phone: "Phone"), Box(item: item, firstName: "First", lastName: "Last", phone: "Phone")]
+        return [Box(item: item, firstName: "Aimee", lastName: "Manning", phone: "(313)123-4567"), Box(item: item, firstName: "Catherine", lastName: "Estes", phone: "(313)765-4321"), Box(item: item, firstName: "Morgan", lastName: "Cochran", phone: "(313)987-2584")]
     }
     
     init(item: MKMapItem, firstName: String, lastName: String, phone: String) {
-
         self.item = item
         self.firstName = firstName
         self.lastName = lastName
