@@ -17,6 +17,10 @@ struct ContentView: View {
     @State private var showAddBoxForm = false
     @State private var showRouteBuilder = false
     
+    @State private var showSettings = false
+    @State private var showFilter = false
+    @State private var downloadClients = false
+    
     @State private var route = [Box]()
     
     var selectedBox: Binding<Box?> {
@@ -40,13 +44,15 @@ struct ContentView: View {
     var body: some View {
         Map(position: $cameraPosition, selection: $mapSelection) {
             // PIN - FOCUS HOPE VOLUNTEER OFFICE
-            Marker("Focus Hope", monogram: Text("FH"), coordinate: CLLocationCoordinate2D(latitude: 42.3996389, longitude: -83.1236609))
-                .tint(.yellow)
+          // Marker("Focus Hope", monogram: Text("FH"), coordinate: CLLocationCoordinate2D(latitude: 42.3996389, longitude: -83.1236609))
+          //      .tint(.yellow)
             
             // BOXES - PROFILE DATA AND MAPITEM BUNDLED TOGETHER AS ONE OBJECT
             ForEach(boxes, id: \.item) { box in
                 let item = box.item
-                
+                Annotation("Focus Hope", coordinate: CLLocationCoordinate2D(latitude: 42.3996389, longitude: -83.1236609)) {
+                    FocusHopeAnnotationView()
+                }
                 // PINS ADDED TO ROUTE
                 if route.contains(box) {
                     Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
@@ -79,7 +85,8 @@ struct ContentView: View {
             
         }
         .overlay(alignment: .top) {
-            HStack {
+            HStack(alignment: .top) {
+                Spacer()
                 if mapSelection == nil {
                     Button {
                         showAddBoxForm.toggle()
@@ -101,8 +108,58 @@ struct ContentView: View {
                             .background(.blue)
                             .cornerRadius(12)
                     }
+                    Spacer()
+                    VStack {
+                         Button {
+                             showSettings = true
+                         }
+                     label: {
+                         Image(systemName: "gearshape")
+                             .foregroundColor(.black)
+                             .font(.largeTitle .bold())
+                             .imageScale(.medium)
+                         
+                     }
+                     .sheet(isPresented: $showSettings) {
+                         SettingsView()
+                     }.padding(.bottom, 8)
+                         
+                         Button {
+                             showFilter = true
+                         }
+                     label: {
+                         Image(systemName: "list.bullet")
+                             .foregroundColor(.black)
+                             .font(.largeTitle .bold())
+                             .imageScale(.medium)
+                     }.sheet(isPresented: $showFilter) {
+                         Text("bla la la")
+                             .font(.headline)
+                             .padding()
+                     }
+                          
+                         Button {
+                             downloadClients = true
+                         }
+                     label: {
+                         Image(systemName: "square.and.arrow.down.on.square")
+                             .foregroundColor(.black)
+                             .font(.largeTitle .bold())
+                             .imageScale(.medium)
+                         
+                     }.padding(.top, 1)
+
+                         
+                     }
+                     .padding(8)
+                                     .background(Color.gray)
+                                     .opacity(0.85)
+                                     .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
+                                     .padding(.trailing, UIScreen.main.bounds.width * 0.015)
+ //                    .background(Color.blue)
+                    
                 }
-            }
+            } .padding(1) //end HStack
         }
     }
 }
