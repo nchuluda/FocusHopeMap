@@ -78,8 +78,8 @@ struct ContentView: View {
         .sheet(isPresented: $showRouteBuilder, content: {
             RouteBuilderView(route: $route, showRouteBuilder: $showRouteBuilder)
         })
-        .sheet(isPresented: $showLoginForm, content: {
-            LoginView()
+        .fullScreenCover(isPresented: $showLoginForm, content: {
+            LoginView(showLoginForm: $showLoginForm)
         })
         .onAppear() {
         pinsModel.buildBoxes()

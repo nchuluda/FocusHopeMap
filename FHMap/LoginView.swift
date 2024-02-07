@@ -11,6 +11,8 @@ struct LoginView: View {
     @State private var user = ""
     @State private var pass = ""
     
+    @Binding var showLoginForm: Bool
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -87,7 +89,7 @@ struct LoginView: View {
                         
                         
                         Button {
-                            print("Button pressed")
+                            showLoginForm = false
                         } label: {
                             Text("LOGIN")
                                 .font(.headline)
@@ -124,7 +126,7 @@ struct LoginView: View {
 #Preview {
 //    struct ContentView_Previews: PreviewProvider {
 //        static var previews: some View {
-            LoginView()
+    LoginView(showLoginForm: .constant(true))
 //        }
 //    }
 }
