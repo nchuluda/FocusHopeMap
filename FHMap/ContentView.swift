@@ -17,13 +17,10 @@ struct ContentView: View {
     @State private var showAddBoxForm = false
     @State private var showRouteBuilder = false
     
-<<<<<<< Updated upstream
     @State private var showSettings = false
     @State private var showFilter = false
     @State private var downloadClients = false
-=======
     @State private var showLoginForm = true
->>>>>>> Stashed changes
     
     @State private var route = [Box]()
     
