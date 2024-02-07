@@ -13,14 +13,14 @@ import SwiftUI
 class PinsModel: ObservableObject {
     var boxes: [Box] = []
     
-    //    func buildPinsFromAddresses() {
-    //        focusHope.forEach { address in
-    //            getCoordinate(addressString: address) { coordinate, error in
-    //                self.pins.append(Pin(name: address, latitude: coordinate.latitude, longitude: coordinate.longitude))
-    //                print("Pin(name: \"\(address)\", latitude: \(coordinate.latitude), longitude: \(coordinate.longitude)),")
-    //            }
-    //        }
-    //    }
+//        func buildPinsFromAddresses() {
+//            focusHope.forEach { address in
+//                getCoordinate(addressString: address) { coordinate, error in
+//                    self.pins.append(Pin(name: address, latitude: coordinate.latitude, longitude: coordinate.longitude))
+//                    print("Pin(name: \"\(address)\", latitude: \(coordinate.latitude), longitude: \(coordinate.longitude)),")
+//                }
+//            }
+//        }
     
     func getCoordinate(addressString: String, completionHandler: @escaping(CLLocationCoordinate2D, NSError?) -> Void) {
         let geocoder = CLGeocoder()
@@ -48,7 +48,7 @@ class PinsModel: ObservableObject {
             boxes.append(Box(item: item, firstName: pin.firstName, lastName: pin.lastName, phone: pin.phone))
         }
     }
-    
+
     func buildBox(coordinate: CLLocationCoordinate2D, address: String, firstName: String, lastName: String, phone: String) -> Box {
         let coords = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let place = MKPlacemark(coordinate: coords)

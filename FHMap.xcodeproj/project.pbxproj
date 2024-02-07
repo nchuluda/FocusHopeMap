@@ -20,6 +20,7 @@
 		D8D6B5A92B684FAF00AC8656 /* AddBoxFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D6B5A82B684FAF00AC8656 /* AddBoxFormView.swift */; };
 		D8F668312B694A3000AC5C46 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F668302B694A3000AC5C46 /* LoginView.swift */; };
 		D8F668332B694A7800AC5C46 /* RouteBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F668322B694A7800AC5C46 /* RouteBuilderView.swift */; };
+		D8F668352B6AAC7900AC5C46 /* PrintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F668342B6AAC7900AC5C46 /* PrintView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		D8D6B5A82B684FAF00AC8656 /* AddBoxFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxFormView.swift; sourceTree = "<group>"; };
 		D8F668302B694A3000AC5C46 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D8F668322B694A7800AC5C46 /* RouteBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteBuilderView.swift; sourceTree = "<group>"; };
+		D8F668342B6AAC7900AC5C46 /* PrintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				D844B2F42B5DB5CC00F4D916 /* LocationDetailsView.swift */,
 				D8F668302B694A3000AC5C46 /* LoginView.swift */,
 				D8F668322B694A7800AC5C46 /* RouteBuilderView.swift */,
+				D8F668342B6AAC7900AC5C46 /* PrintView.swift */,
 				D844B2EA2B5DB5AC00F4D916 /* Assets.xcassets */,
 				D844B2EC2B5DB5AC00F4D916 /* Preview Content */,
 			);
@@ -164,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F668352B6AAC7900AC5C46 /* PrintView.swift in Sources */,
 				D844B2F92B5E145C00F4D916 /* Pins.swift in Sources */,
 				D844B2FB2B5EF0A000F4D916 /* PinsModel.swift in Sources */,
 				D844B2E92B5DB5AB00F4D916 /* ContentView.swift in Sources */,
@@ -306,15 +310,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0202202403;
 				DEVELOPMENT_ASSET_PATHS = "\"FHMap/Preview Content\"";
+				DEVELOPMENT_TEAM = CYB7XMX77J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Hope";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,15 +341,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0202202403;
 				DEVELOPMENT_ASSET_PATHS = "\"FHMap/Preview Content\"";
+				DEVELOPMENT_TEAM = CYB7XMX77J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Hope";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

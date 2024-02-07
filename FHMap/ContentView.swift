@@ -81,9 +81,9 @@ struct ContentView: View {
         pinsModel.buildBoxes()
         boxes = pinsModel.boxes
         }
-        .onChange(of: showAddBoxForm) {
-            
-        }
+//        .onChange(of: showAddBoxForm) {
+//            
+//        }
         .overlay(alignment: .top) {
             HStack(alignment: .top) {
                 Spacer()
