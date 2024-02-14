@@ -12,6 +12,7 @@ import SwiftUI
 
 class PinsModel: ObservableObject {
     var boxes: [Box] = []
+    var zipCodes: [ZipCodePin] = []
     
 //        func buildPinsFromAddresses() {
 //            focusHope.forEach { address in
@@ -45,19 +46,67 @@ class PinsModel: ObservableObject {
             item.name = pin.address
             item.timeZone = TimeZone(identifier: "EST")
             
-            boxes.append(Box(item: item, firstName: pin.firstName, lastName: pin.lastName, phone: pin.phone))
+            boxes.append(Box(item: item, firstName: pin.firstName, lastName: pin.lastName, phone: pin.phone, zip: pin.zip))
         }
     }
 
-    func buildBox(coordinate: CLLocationCoordinate2D, address: String, firstName: String, lastName: String, phone: String) -> Box {
+    func buildBox(coordinate: CLLocationCoordinate2D, address: String, firstName: String, lastName: String, phone: String, zip: String) -> Box {
         let coords = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let place = MKPlacemark(coordinate: coords)
         let item = MKMapItem(placemark: place)
         item.name = address
         item.timeZone = TimeZone(identifier: "EST")
         
-        return Box(item: item, firstName: firstName, lastName: lastName, phone: phone)
+        return Box(item: item, firstName: firstName, lastName: lastName, phone: phone, zip: zip)
     }
+    
+    func buildZipCodePins() {
+        for zip in zips {
+            let coords = CLLocationCoordinate2D(latitude: zip.latitude, longitude: zip.longitude)
+            let place = MKPlacemark(coordinate: coords)
+            let item = MKMapItem(placemark: place)
+            item.name = zip.zip
+            item.timeZone = TimeZone(identifier: "EST")
+            
+            zipCodes.append(ZipCodePin(item: item, zip: zip.zip))
+        }
+    }
+    
+    func filterBoxesByZip(zip: String) -> [Box] {
+        let filtered = boxes.filter {
+            $0.zip.prefix(5) == zip
+        }
+        return filtered
+    }
+    
+    var zips: [Zip] = [Zip(zip: "48234", latitude: 42.4229785, longitude: -83.0146218),
+                       Zip(zip: "48207", latitude: 42.353319, longitude: -83.028790),
+                       Zip(zip: "48202", latitude: 42.3751039, longitude: -83.0788),
+                       Zip(zip: "48223", latitude: 42.3931249, longitude: -83.2459096),
+                       Zip(zip: "48211", latitude: 42.3832106, longitude: -83.0479799),
+                       Zip(zip: "48238", latitude: 42.3938174, longitude: -83.1373509),
+                       Zip(zip: "48214", latitude: 42.367382, longitude: -82.990609),
+                       Zip(zip: "48203", latitude: 42.4179013, longitude: -83.1053434),
+                       Zip(zip: "48213", latitude: 42.3980576, longitude: -82.9938007),
+                       Zip(zip: "48219", latitude: 42.4245186, longitude: -83.2526856),
+                       Zip(zip: "48208", latitude: 42.3490231, longitude: -83.092706),
+                       Zip(zip: "48215", latitude: 42.3765289, longitude: -82.9513663),
+                       Zip(zip: "48227", latitude: 42.3874742, longitude: -83.1924768),
+                       Zip(zip: "48212", latitude: 42.4051905, longitude: -83.0566736),
+                       Zip(zip: "48221", latitude: 42.4280491, longitude: -83.1505756),
+                       Zip(zip: "48216", latitude: 42.3251628, longitude: -83.0773981),
+                       Zip(zip: "48224", latitude: 42.4119331, longitude: -82.9407136),
+                       Zip(zip: "48243", latitude: 42.3293575, longitude: -83.0400364),
+                       Zip(zip: "48226", latitude: 42.3087797, longitude: -83.0800669),
+                       Zip(zip: "48228", latitude: 42.3556202, longitude: -83.2135296),
+                       Zip(zip: "48205", latitude: 42.4268241, longitude: -82.9823018),
+                       Zip(zip: "48235", latitude: 42.4269376, longitude: -83.1945455),
+                       Zip(zip: "48210", latitude: 42.3377615, longitude: -83.128615),
+                       Zip(zip: "48209", latitude: 42.3035991, longitude: -83.1148144),
+                       Zip(zip: "48204", latitude: 42.3674136, longitude: -83.1429975),
+                       Zip(zip: "48201", latitude: 42.3462281, longitude: -83.0589275),
+                       Zip(zip: "48206", latitude: 42.3751512, longitude: -83.1075395),
+                       Zip(zip: "48217", latitude: 42.2761283, longitude: -83.1512196)]
     
     let samplePins = [Pin(firstName: "Julian", lastName: "Conner", address: "20100 MOROSS RD", city: "Detroit", state: "MI", zip: "48224-1181", phone: "(313)-436-7101", latitude: 42.4274075, longitude: -82.9365005),
     Pin(firstName: "Ashten", lastName: "Maxwell", address: "1434 SHERIDAN ST", city: "Detroit", state: "MI", zip: "48214", phone: "(313)-186-8623", latitude: 42.353657, longitude: -83.002515),
@@ -358,6 +407,44 @@ class PinsModel: ObservableObject {
     Pin(firstName: "Payten", lastName: "Ponce", address: "3501 E JEFFERSON AVE", city: "Detroit", state: "MI", zip: "48207-4293", phone: "(313)-320-4374", latitude: 42.3431484, longitude: -83.0120625),
     Pin(firstName: "Aiden", lastName: "Morgan", address: "11340 BRUSH ST APT 1", city: "Detroit", state: "MI", zip: "48202-1382", phone: "(313)-982-3300", latitude: 42.3931827, longitude: -83.0810185),
     Pin(firstName: "Preston", lastName: "Joseph", address: "16400 FAIRMOUNT DR", city: "Detroit", state: "MI", zip: "48205-1537", phone: "(313)-975-6605", latitude: 42.4445376, longitude: -82.9509593),
-    Pin(firstName: "Dean", lastName: "Mayo", address: "20401 WOODWARD AVE", city: "Detroit", state: "MI", zip: "48203-10ND", phone: "(313)-890-0750", latitude: 42.4449002, longitude: -83.1244016),]
+    Pin(firstName: "Dean", lastName: "Mayo", address: "20401 WOODWARD AVE", city: "Detroit", state: "MI", zip: "48203-10ND", phone: "(313)-890-0750", latitude: 42.4449002, longitude: -83.1244016),
+                      
+    Pin(firstName: "Deacon", lastName: "Mckay", address: "12901 SYRACUSE ST", city: "Hamtramck", state: "MI", zip: "48212-2415", phone: "(313)-438-3285", latitude: 42.4134576, longitude: -83.0448035),
+    Pin(firstName: "Dorthy", lastName: "Salinas", address: "1900 MEADE ST", city: "Hamtramck", state: "MI", zip: "48212-2154", phone: "(313)-450-7886", latitude: 42.4063847, longitude: -83.0747564),
+    Pin(firstName: "Mikey", lastName: "Nelson", address: "17100 RYAN RD", city: "Hamtramck", state: "MI", zip: "48212-1113", phone: "(313)-811-0352", latitude: 42.4188498, longitude: -83.0622828),
+    Pin(firstName: "Sian", lastName: "Pierce", address: "5201 E MCNICHOLS RD", city: "Hamtramck", state: "MI", zip: "48212-1810", phone: "(313)-689-2186", latitude: 42.4190831, longitude: -83.0501522),
+    Pin(firstName: "Carmen", lastName: "Graves", address: "12201 CHAREST ST", city: "Hamtramck", state: "MI", zip: "48212-2760", phone: "(313)-682-0835", latitude: 42.4075331, longitude: -83.0614851),
+    Pin(firstName: "Esmee", lastName: "Wilkins", address: "9401 LATHAM ST", city: "Hamtramck", state: "MI", zip: "48212-3455", phone: "(313)-703-4869", latitude: 42.3938138, longitude: -83.0583217),
+    Pin(firstName: "Tessa", lastName: "Poole", address: "2275 WYANDOTTE ST", city: "Hamtramck", state: "MI", zip: "48212-4280", phone: "(313)-534-5933", latitude: 42.390783, longitude: -83.0590688),
+    Pin(firstName: "Abbey", lastName: "Turner", address: "2201 TROWBRIDGE ST", city: "Hamtramck", state: "MI", zip: "48212-4406", phone: "(313)-109-4623", latitude: 42.3978789, longitude: -83.063248),
+    Pin(firstName: "Eryn", lastName: "Fleming", address: "2601 HOLBROOK ST", city: "Hamtramck", state: "MI", zip: "48212-3431", phone: "(313)-735-7254", latitude: 42.3927027, longitude: -83.058631),
+    Pin(firstName: "Iqra", lastName: "Freeman", address: "11600 GABLE ST", city: "Hamtramck", state: "MI", zip: "48212-2524", phone: "(313)-140-3264", latitude: 42.4087013, longitude: -83.0412887),
+    Pin(firstName: "Savanna", lastName: "Horton", address: "2401 PULASKI ST", city: "Hamtramck", state: "MI", zip: "48212-2993", phone: "(313)-238-1223", latitude: 42.4020071, longitude: -83.0652931),
+    Pin(firstName: "Awais", lastName: "Shepherd", address: "2600 PULASKI ST", city: "Hamtramck", state: "MI", zip: "48212-3011", phone: "(313)-396-8963", latitude: 42.4020226, longitude: -83.0643272),
+    Pin(firstName: "Simeon", lastName: "Roach", address: "9501 GALLAGHER ST", city: "Hamtramck", state: "MI", zip: "48212-3549", phone: "(313)-786-3554", latitude: 42.396488, longitude: -83.0530972),
+    Pin(firstName: "Jude", lastName: "Schwartz", address: "9336 JOSEPH CAMPAU", city: "Hamtramck", state: "MI", zip: "48212-3894", phone: "(313)-518-1056", latitude: 42.3942775, longitude: -83.0559421),
+    Pin(firstName: "Khalil", lastName: "Daniels", address: "12092 MITCHELL ST", city: "Hamtramck", state: "MI", zip: "48212-3966", phone: "(313)-978-6770", latitude: 42.405815, longitude: -83.0625088),
+    Pin(firstName: "Felicity", lastName: "Haas", address: "2275 HOLBROOK ST", city: "Hamtramck", state: "MI", zip: "48212-4052", phone: "(313)-913-4295", latitude: 42.3917004, longitude: -83.0602169),
+    Pin(firstName: "Isaiah", lastName: "Yang", address: "5000 PRESCOTT ST", city: "Hamtramck", state: "MI", zip: "48212-3118", phone: "(313)-480-5848", latitude: 42.4044369, longitude: -83.0496729),
+    Pin(firstName: "Teresa", lastName: "Garner", address: "5260 TROWBRIDGE ST", city: "Hamtramck", state: "MI", zip: "48212-3760", phone: "(313)-385-2588", latitude: 42.4044783, longitude: -83.0444729),
+                      
+    Pin(firstName: "Reid", lastName: "Frye", address: "181 AVALON ST", city: "Highland Park", state: "MI", zip: "48203-3230", phone: "(313)-303-4394", latitude: 42.3978542, longitude: -83.0995964),
+    Pin(firstName: "Tatiana", lastName: "Burns", address: "2755 WOODSTOCK DR", city: "Highland Park", state: "MI", zip: "48203-1055", phone: "(313)-173-0076", latitude: 42.4450647, longitude: -83.1314348),
+    Pin(firstName: "Casey", lastName: "Norris", address: "1300 MADEIRA ST", city: "Highland Park", state: "MI", zip: "48203-2301", phone: "(313)-297-3104", latitude: 42.4216388, longitude: -83.0894886),
+    Pin(firstName: "Oliwia", lastName: "Rojas", address: "2 E BUENA VISTA ST", city: "Highland Park", state: "MI", zip: "48203-3396", phone: "(313)-391-1333", latitude: 42.4010988, longitude: -83.0926544),
+    Pin(firstName: "Kobi", lastName: "Hammond", address: "18101 RUSSELL ST", city: "Highland Park", state: "MI", zip: "48203-2498", phone: "(313)-324-0967", latitude: 42.4264611, longitude: -83.0902593),
+    Pin(firstName: "Keith", lastName: "Lam", address: "900 WHITMORE RD", city: "Highland Park", state: "MI", zip: "48203-1723", phone: "(313)-706-1762", latitude: 42.4204238, longitude: -83.1152973),
+    Pin(firstName: "Emilia", lastName: "Colon", address: "2001 LOUISE ST", city: "Highland Park", state: "MI", zip: "48203-2696", phone: "(313)-428-8515", latitude: 42.4117311, longitude: -83.1200837),
+    Pin(firstName: "Aiden", lastName: "Howard", address: "19100 BAUMAN ST", city: "Highland Park", state: "MI", zip: "48203-1507", phone: "(313)-864-9205", latitude: 42.4327734, longitude: -83.1119311),
+    Pin(firstName: "Ayla", lastName: "Jackson", address: "20000 ORLEANS ST", city: "Highland Park", state: "MI", zip: "48203-1390", phone: "(313)-953-4370", latitude: 42.4415204, longitude: -83.0852388),
+    Pin(firstName: "Jasmine", lastName: "Potts", address: "701 ANNIN ST", city: "Highland Park", state: "MI", zip: "48203-1555", phone: "(313)-658-6044", latitude: 42.4360589, longitude: -83.1105003),
+    Pin(firstName: "Lottie", lastName: "Gilmore", address: "12000 WOODWARD AVE", city: "Highland Park", state: "MI", zip: "48203-3578", phone: "(313)-157-1219", latitude: 42.3948411, longitude: -83.0889186),
+    Pin(firstName: "David", lastName: "Rivera", address: "700 E MARGARET ST", city: "Highland Park", state: "MI", zip: "48203-2045", phone: "(313)-149-6737", latitude: 42.426192, longitude: -83.0956349),
+    Pin(firstName: "Lowri", lastName: "Tate", address: "18100 CARDONI ST", city: "Highland Park", state: "MI", zip: "48203-2490", phone: "(313)-962-6723", latitude: 42.4257162, longitude: -83.0908769),
+    Pin(firstName: "Benjamin", lastName: "Harmon", address: "17110 3RD ST", city: "Highland Park", state: "MI", zip: "48203-1858", phone: "(313)-521-2136", latitude: 42.4179036, longitude: -83.1125501),
+    Pin(firstName: "Murray", lastName: "Hubbard", address: "18001 GREELEY ST", city: "Highland Park", state: "MI", zip: "48203-2472", phone: "(313)-174-5025", latitude: 42.425234, longitude: -83.0876345),
+    Pin(firstName: "Steffan", lastName: "Sutherland", address: "13800 LINCOLN ST", city: "Highland Park", state: "MI", zip: "48203-3025", phone: "(313)-973-1269", latitude: 42.4026549, longitude: -83.1088346),
+    Pin(firstName: "Jackson", lastName: "Anthony", address: "18157 HULL ST", city: "Highland Park", state: "MI", zip: "48203-5407", phone: "(313)-664-0305", latitude: 42.4272777, longitude: -83.0890976),
+    Pin(firstName: "Fintan", lastName: "Sheppard", address: "830 MERTON RD", city: "Highland Park", state: "MI", zip: "48203-1741", phone: "(313)-686-3062", latitude: 42.4186404, longitude: -83.1135939)]
     
 }

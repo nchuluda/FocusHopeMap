@@ -9,7 +9,12 @@ import SwiftUI
 
 struct FocusHopeAnnotationView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Image("pinFocusHope")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: UIScreen.main.bounds.width * 0.06)
+        }
     }
 }
 

@@ -13,7 +13,10 @@ struct ContentView: View {
     @State private var cameraPosition: MapCameraPosition = .region(.userRegion)
     @State private var mapSelection: MKMapItem?
     @State private var boxes = [Box]()
+    @State private var route = [Box]()
+    @State private var zipCodes = [ZipCodePin]()
     
+    @State private var showZips = true
     @State private var showAddBoxForm = false
     @State private var showRouteBuilder = false
     
@@ -22,7 +25,7 @@ struct ContentView: View {
     @State private var downloadClients = false
     @State private var showLoginForm = true
     
-    @State private var route = [Box]()
+    
     
     var selectedBox: Binding<Box?> {
         Binding {
@@ -45,24 +48,58 @@ struct ContentView: View {
     var body: some View {
         Map(position: $cameraPosition, selection: $mapSelection) {
             // PIN - FOCUS HOPE VOLUNTEER OFFICE
-          // Marker("Focus Hope", monogram: Text("FH"), coordinate: CLLocationCoordinate2D(latitude: 42.3996389, longitude: -83.1236609))
-          //      .tint(.yellow)
+            Annotation("Focus Hope", coordinate: CLLocationCoordinate2D(latitude: 42.3996389, longitude: -83.1236609)) {
+                FocusHopeAnnotationView()
+            }
+            
+            // ZIP CODES
+            if showZips {
+                ForEach(zipCodes, id: \.item) { zip in
+                    let item = zip.item
+                    
+                    Annotation(zip.zip, coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)) {
+                        ZStack {
+//                            RoundedRectangle(cornerRadius: 10, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
+//                                .frame(width: 75, height: 35)
+//                                .foregroundColor(.yellow.opacity(0.5))
+//                                .offset(y: 15)
+//                                .onTapGesture {
+//                                    showZips.toggle()
+//                                    boxes = pinsModel.filterBoxesByZip(zip: zip.zip)
+//                                }
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .frame(width: 75, height: 35)
+                                .foregroundColor(.mint)
+                                .overlay {
+                                    Text(zip.zip)
+                                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                        .font(.title3)
+                                }
+                                .onTapGesture {
+                                    showZips.toggle()
+                                    boxes = pinsModel.filterBoxesByZip(zip: zip.zip)
+                                }
+                        }
+                    }
+                    .annotationTitles(.hidden)
+                }
+            }
             
             // BOXES - PROFILE DATA AND MAPITEM BUNDLED TOGETHER AS ONE OBJECT
-            ForEach(boxes, id: \.item) { box in
-                let item = box.item
-                Annotation("Focus Hope", coordinate: CLLocationCoordinate2D(latitude: 42.3996389, longitude: -83.1236609)) {
-                    FocusHopeAnnotationView()
-                }
-                // PINS ADDED TO ROUTE
-                if route.contains(box) {
-                    Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
-                        .tint(.blue)
-                        
+            if !showZips {
+                ForEach(boxes, id: \.item) { box in
+                    let item = box.item
                     
-                // ALL REMAINING PINS
-                } else {
-                    Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
+                    // PINS ADDED TO ROUTE
+                    if route.contains(box) {
+                        Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
+                            .tint(.blue)
+                            
+                        
+                    // ALL REMAINING PINS
+                    } else {
+                        Marker(item.name ?? "Box", systemImage: "shippingbox", coordinate: CLLocationCoordinate2D(latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude))
+                    }
                 }
             }
         }
@@ -82,8 +119,11 @@ struct ContentView: View {
             LoginView(showLoginForm: $showLoginForm)
         })
         .onAppear() {
-        pinsModel.buildBoxes()
-        boxes = pinsModel.boxes
+            pinsModel.buildBoxes()
+            boxes = pinsModel.boxes
+            
+            pinsModel.buildZipCodePins()
+            zipCodes = pinsModel.zipCodes
         }
 //        .onChange(of: showAddBoxForm) {
 //            
@@ -111,6 +151,19 @@ struct ContentView: View {
                             .frame(width: 100, height: 48)
                             .background(.blue)
                             .cornerRadius(12)
+                    }
+                    if !showZips {
+                        Button {
+                            showZips.toggle()
+                            mapSelection = nil
+                        } label: {
+                            Text("Zip Codes")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(width: 100, height: 48)
+                                .background(.mint)
+                                .cornerRadius(12)
+                        }
                     }
                     Spacer()
                     VStack {
